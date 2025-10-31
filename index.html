@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя библиотека книг</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+      <header>
+        <h1>📚 Моя библиотека книг</h1>
+        <p>Управляйте своей коллекцией книг легко и удобно</p>
+      </header>
+
+      <div class="stats">
+        <div class="stat-box">
+          <div class="stat-number" id="total-books">0</div>
+          <div>Всего книг</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number" id="read-books">0</div>
+          <div>Прочитано</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number" id="unread-books">0</div>
+          <div>Не прочитано</div>
+        </div>
+      </div>
+
+      <!-- Форма добавления/редактирования книги -->
+      <div class="form-container">
+        <h2 id="form-title">Добавить новую книгу</h2>
+        <form id="book-form">
+          <input type="hidden" id="edit-id" value="" />
+
+          <div class="form-group">
+            <label for="title">Название книги:*</label>
+            <input type="text" id="title" required />
+          </div>
+
+          <div class="form-group">
+            <label for="authors">Авторы (через запятую):*</label>
+            <input type="text" id="authors" required />
+          </div>
+
+          <div class="form-group">
+            <label for="year">Год издания:*</label>
+            <input type="number" id="year" min="1000" max="2100" required />
+          </div>
+
+          <div class="form-group">
+            <label for="edition">Редакция:*</label>
+            <input type="text" id="edition" />
+          </div>
+
+          <div class="form-group">
+            <label for="storage-name">Место хранения:*</label>
+            <input type="text" id="storage-name" required />
+          </div>
+
+          <div class="form-group">
+            <label for="storage-path">Полный путь к файлу:*</label>
+            <input type="text" id="storage-path" required />
+          </div>
+
+          <div class="form-group">
+            <label for="book-type">Тип книги:*</label>
+            <select id="book-type" required>
+              <option value="">Выберите тип</option>
+              <option value="Художественная литература">
+                Художественная литература
+              </option>
+              <option value="Научная литература">Научная литература</option>
+              <option value="Техническая литература">
+                Техническая литература
+              </option>
+              <option value="Учебная литература">Учебная литература</option>
+              <option value="Справочная литература">
+                Справочная литература
+              </option>
+              <option value="Другое">Другое</option>
+            </select>
+          </div>
+
+          <div class="form-group checkbox-group">
+            <input type="checkbox" id="is-read" />
+            <label for="is-read">Книга прочитана</label>
+          </div>
+
+          <div class="form-buttons">
+            <button type="submit" id="submit-btn">Добавить книгу</button>
+            <button type="button" id="cancel-btn" style="display: none">
+              Отмена
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Таблица с книгами -->
+      <div class="table-container">
+        <h2>Список книг</h2>
+        <div class="filters">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Поиск по названию или автору..."
+          />
+          <select id="filter-type">
+            <option value="">Все типы</option>
+            <option value="Художественная литература">
+              Художественная литература
+            </option>
+            <option value="Научная литература">Научная литература</option>
+            <option value="Техническая литература">
+              Техническая литература
+            </option>
+            <option value="Учебная литература">Учебная литература</option>
+            <option value="Справочная литература">Справочная литература</option>
+            <option value="Другое">Другое</option>
+          </select>
+          <select id="filter-read">
+            <option value="">Все книги</option>
+            <option value="read">Прочитанные</option>
+            <option value="unread">Не прочитанные</option>
+          </select>
+        </div>
+
+        <table id="books-table">
+          <thead>
+            <tr>
+              <th>Название</th>
+              <th>Авторы</th>
+              <th>Год</th>
+              <th>Тип</th>
+              <th>Прочитана</th>
+              <th>Место хранения</th>
+              <th>Действия</th>
+            </tr>
+          </thead>
+          <tbody id="books-list">
+            <!-- Книги будут добавляться здесь -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="export-import">
+        <button class="btn-export" onclick="library.exportData('csv')">
+          Экспорт CSV
+        </button>
+        <button class="btn-export" onclick="library.exportData('json')">
+          Экспорт JSON
+        </button>
+        <input
+          type="file"
+          id="import-file"
+          accept=".csv,.json"
+          style="display: none"
+        />
+        <button
+          class="btn-export"
+          onclick="document.getElementById('import-file').click()"
+        >
+          Импорт данных
+        </button>
+      </div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
